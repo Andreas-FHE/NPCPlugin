@@ -1,6 +1,6 @@
 package me.ai4kids.npcplugin;
 
-import org.bukkit.Bukkit;
+
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -8,20 +8,21 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class Main extends JavaPlugin implements Listener {
+public final class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
         this.getServer().getPluginManager().registerEvents(new Join(), this);
+        System.out.println("NPC Plugin wurde geladen.");
     }
 
     @Override
     public void onDisable() {
-        Bukkit.getLogger().info(ChatColor.RED + "Disabled " + this.getName());
+
     }
 
 
-    /*Hier Erstellen wir den Befehl zum Erstellen des NPCs*/
+    /*7.) Hier prüfen wir den Befehl zum Erstellen des NPCs*/
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
         if (label.equalsIgnoreCase("createnpc")){/*Wir müssen checken ob der Absender des Befehls eine Console oder ein Spieler ist*/
             if(!(sender instanceof Player)){/*Wenn es kein Spieler ist, passiert nichts*/

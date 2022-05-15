@@ -4,3 +4,5 @@ main: me.ai4kids.npcplugin.Main
 api-version: 1.16
 authors: [ AI4Kids ]
 description: NPC Plugin for AI4Kids
+commands:
+  createnpc:
