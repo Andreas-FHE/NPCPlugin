@@ -24,7 +24,7 @@ public class NPC {
     public static void createNPC(Player player) {/*Player player übergibt die Koordinaten des Spielers, wo der NPC dann steht*/
         MinecraftServer server = ((CraftServer) Bukkit.getServer()).getServer();/*Hiermit kann man den Server ansprechen*/
         WorldServer world = ((CraftWorld) Bukkit.getWorld(player.getWorld().getName())).getHandle();/*Hiermit findet man die Welt, in der der Spieler steht*/
-        GameProfile gameProfile = new GameProfile(UUID.randomUUID(), ChatColor.RED + "" + ChatColor.BOLD + "AI4Kids");/*Wir geben den NPC eine UUID und einen Namen, max 16 Buchstaben*/
+        GameProfile gameProfile = new GameProfile(UUID.randomUUID(), ChatColor.DARK_AQUA + "" + ChatColor.BOLD + "AI4Kids");/*Wir geben den NPC eine UUID und einen Namen, max 16 Buchstaben*/
         EntityPlayer npc = new EntityPlayer(server, world, gameProfile, new PlayerInteractManager(world));/*Hier erstellen wir den NPC mithilfe der vom Server kommenden Daten*/
         npc.setLocation(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ(), player.getLocation().getYaw(), player.getLocation().getPitch());/*Der NPC übernimmt die Position des Spielers (z.B. auch Kopfrotation)*/
 
