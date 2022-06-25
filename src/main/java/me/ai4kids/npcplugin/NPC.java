@@ -46,7 +46,7 @@ public class NPC {
         /*Try und catch gehören zusammen
         * Sie werden zum Fehler abfangen benoetigt*/
         try {
-            /*Hier kommt die erste Anfrage fuer die id mit Hilfe des Namens*/
+            /*Hier kommt die erste Anfrage fuer die id, mithilfe des Namens*/
             URL req = new URL("https://api.mojang.com/users/profiles/minecraft/" + name); /*Hier senden wir eine Anfrage mit dem eingegebenen Namen*/
             /*Alles was in der Variable req steht einlesen*/
             InputStreamReader reader = new InputStreamReader(req.openStream());
@@ -65,7 +65,7 @@ public class NPC {
             JsonObject property = new JsonParser().parse(reader2).getAsJsonObject().get("properties").getAsJsonArray().get(0).getAsJsonObject(); /*Auslesen der properties*/
             String texture = property.get("value").getAsString();/*Auslesen des values*/
             String signature = property.get("signature").getAsString();/*Auslesen der signature*/
-            return new String[] {texture, signature}; /*zurueckgeben des Skins*/
+            return new String[] {texture, signature}; /*Zurueckgeben des Skins*/
 
             /*BEISPIEL
             * Input: https://sessionserver.mojang.com/session/minecraft/profile/dc19d798c55341dcad99b0fa79db4f93
