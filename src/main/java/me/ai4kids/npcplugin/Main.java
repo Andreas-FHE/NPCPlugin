@@ -30,8 +30,15 @@ public final class Main extends JavaPlugin implements Listener{
             }
             Player player = (Player) sender;/*Wenn es ein Spieler ist, soll der NPC erstellt werden*/
 
-            NPC.createNPC(player); /*Aufrufen der create Funktion für den NPC*/
-            player.sendMessage(ChatColor.GREEN + "NPC erstellt!"); /*Rückmeldung für den Spieler, dass der NPC erfolgreich erstellt wurde*/
+            if(args.length == 0){/*Wenn kein Name angegeben wurde, wird der Skin vom Absender des commands verwendet*/
+                NPC.createNPC(player, player.getName());
+                player.sendMessage(ChatColor.GREEN +"Standard NPC erstellt!");
+                return true;
+            }
+
+            NPC.createNPC(player, args[0]); /*Aufrufen der create Funktion für den NPC*/
+            player.sendMessage(ChatColor.GREEN + "Custom NPC erstellt!"); /*Rückmeldung für den Spieler, dass der NPC erfolgreich erstellt wurde*/
+            return true;
         }
         return false;
     }

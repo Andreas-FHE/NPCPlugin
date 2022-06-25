@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2b6268f8-7794-4f10-bb87-3216ac97913b" name="Changes" comment="added completed slides/code">
+    <list default="true" id="2b6268f8-7794-4f10-bb87-3216ac97913b" name="Changes" comment="Changed color">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/ai4kids/npcplugin/Join.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/ai4kids/npcplugin/Join.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/me/ai4kids/npcplugin/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/ai4kids/npcplugin/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/me/ai4kids/npcplugin/NPC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/ai4kids/npcplugin/NPC.java" afterDir="false" />
     </list>
@@ -23,6 +22,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MavenImportPreferences">
@@ -132,7 +136,9 @@
       <workItem from="1652625031705" duration="43000" />
       <workItem from="1652625092708" duration="1939000" />
       <workItem from="1652869326780" duration="67000" />
-      <workItem from="1652869475636" duration="1871000" />
+      <workItem from="1652869475636" duration="2017000" />
+      <workItem from="1656114494053" duration="4645000" />
+      <workItem from="1656168462785" duration="4505000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1652483039337</created>
@@ -169,7 +175,21 @@
       <option name="project" value="LOCAL" />
       <updated>1652626976399</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="fixed typos">
+      <created>1652879881000</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1652879881000</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Changed color">
+      <created>1656114802545</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1656114802545</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -180,7 +200,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="Veranstaltung2" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -191,6 +223,8 @@
     <MESSAGE value="Initial commit" />
     <MESSAGE value="added incomplete slides" />
     <MESSAGE value="added completed slides/code" />
-    <option name="LAST_COMMIT_MESSAGE" value="added completed slides/code" />
+    <MESSAGE value="fixed typos" />
+    <MESSAGE value="Changed color" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed color" />
   </component>
 </project>
