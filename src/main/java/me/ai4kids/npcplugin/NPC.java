@@ -32,7 +32,8 @@ public class NPC {
         GameProfile gameProfile = new GameProfile(UUID.randomUUID(), ChatColor.RED + "" + ChatColor.BOLD + skin);/*Wir geben den NPC eine UUID und einen Namen, max 16 Buchstaben*/
         EntityPlayer npc = new EntityPlayer(server, world, gameProfile, new PlayerInteractManager(world));/*Hier erstellen wir den NPC mithilfe der vom Server kommenden Daten*/
         npc.setLocation(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ(), player.getLocation().getYaw(), player.getLocation().getPitch());/*Der NPC übernimmt die Position des Spielers (z.B. auch Kopfrotation)*/
-
+        npc.getDataWatcher().set(new DataWatcherObject<>(16, DataWatcherRegistry.a), (byte)127);//Optional: Um layerd Skins zu verwenden
+        /*DataWatcher scheint die Metadaten aktuell zu halten*/
         String[] name = getSkin(player, skin);/*Übergabe des Skins an ein Array*/
         gameProfile.getProperties().put("textures", new Property("textures", name[0], name[1]));/*Hier geben wir den Skin an den NPC, mithilfe des Arrays*/
 
@@ -51,7 +52,6 @@ public class NPC {
             /*Alles was in der Variable req steht einlesen*/
             InputStreamReader reader = new InputStreamReader(req.openStream());
             String uuid = new JsonParser().parse(reader).getAsJsonObject().get("id").getAsString();/*Hier lesen wir NUR die id aus*/
-
             /* BEISPIEL
             * Input: https://api.mojang.com/users/profiles/minecraft/H4cker_HD
             *
@@ -62,9 +62,12 @@ public class NPC {
             /*Hier kommt die zweite Anfrage mithilfe der ermittelten id*/
             URL req2 = new URL("https://sessionserver.mojang.com/session/minecraft/profile/" + uuid + "?unsigned=false"); /*Das letzte Kuerzel ist wichtig um auch an die signature zu kommen*/
             InputStreamReader reader2 = new InputStreamReader(req2.openStream());
+
             JsonObject property = new JsonParser().parse(reader2).getAsJsonObject().get("properties").getAsJsonArray().get(0).getAsJsonObject(); /*Auslesen der properties*/
             String texture = property.get("value").getAsString();/*Auslesen des values*/
             String signature = property.get("signature").getAsString();/*Auslesen der signature*/
+            reader.close();
+            reader2.close();
             return new String[] {texture, signature}; /*Zurueckgeben des Skins*/
 
             /*BEISPIEL
@@ -79,7 +82,14 @@ public class NPC {
                 * iB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDgzYTE1M2Y1MDRjYjJiM2JhND
                 * VkMTMyOGYxOTIxNmUxMjQwMjkyYjgwOTBmYTcxMzkzNDRjZDdjZGVmMjU3ZSIKICAgIH0sCiAgICAiQ0FQRSIgOiB7CiAgICAgICJ
                 * 1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjM0MGMwZTAzZGQyNGExMWIxNWE4YjMzYzJhN2U5
-                * ZTMyYWJiMjA1MWIyNDgxZDBiYTdkZWZkNjM1Y2E3YTkzMyIKICAgIH0KICB9Cn0="
+                * ZTMyYWJiMjA1MWIyNDgxZDBiYTdkZWZkNjM1Y2E3YTkzMyIKICAgIH0KICB9Cn0=",
+            * "signature" : "JaLDIYoBUDyyFeEeKulYuslT/zFMTJNjmR6WQeNNxbeNcvFhgCwoxoYA88ZXjDmPpDjojz3ZYw3mGu161SIAGC
+                * Yu4w0LHtlBYLfbgmsmqtfWYQ6Anz5NuwLxvP7tWETgXMOzIuSGSCUBFrKiJC4Djdsu+hAKPQJ7oYyJ2ooZdxVhbNQGXRc0uRz6MyH
+                * +NnJ6Y6OzyG12gxJu85yl6SEVZ4Qb2uhCMv4Zpgip3Q8nz/5P0OuwFI22U/I4PFKsBobOwUW6JftkNQnRoTaOwerXnJZbeJMdFDrQ
+                * 6o+Uvq4CJU0t29cjpjeaoBSjc34ELhcso7bXsB6hD7sjFgfpa20bVHIMdoJBJ4ifYpXWhjiX2UHDKzpdMSbQkyXr3Q5kR6sWJMCBq
+                * xiYEhHfN8yd8VsGg84ylkIMkLYbSJx+WJIATjDtKkhb6IehxBe8nfMivnDPIbj+kbtSq0+1Rx0YDFSuS8cYsgt4PSOKGpv29HZqSs
+                * 2W0oYyHhdHkkAZBFqi2cu6wBWY59pSiGXroxIk7MhSBxGqH6dI8Nxokm6J/9vKFYtWZp8QZ9a+3vIMGygV9NZvo7HLiCj3awc7bu0
+                * 8O19fGnxXZFP+mSM2IC8M0/qyiSnOaT1xCe4HDRhdklWyFgKS4KUGQxExzchKt7nyaxdBp/bgoaJRRGeFnylqQHs0GzQ="
             * } ]
             */
 
@@ -102,6 +112,7 @@ public class NPC {
             connection.sendPacket(new PacketPlayOutPlayerInfo(PacketPlayOutPlayerInfo.EnumPlayerInfoAction.ADD_PLAYER, npc));/*Hier nehmen wir den NPC als "Spieler" auf, dieser wird dann auch in der TAB Liste angezeigt*/
             connection.sendPacket(new PacketPlayOutNamedEntitySpawn(npc));/*Spawnt den NPC für den Spieler Client*/
             connection.sendPacket(new PacketPlayOutEntityHeadRotation(npc, (byte) (npc.yaw * 256 / 360)));/*Wir übersetzen hier einen Winkel in eine Zahl zwischen 0-256, da es sonst zu Fehlern kommt*/
+            connection.sendPacket(new PacketPlayOutEntityMetadata(npc.getId(), npc.getDataWatcher(), true)); //Optional: Um layerd Skins zu verwenden
         }
     }
     /*5.) Hier erstellen wir eine Funktion, die allen Spielern, die später joinen, sagt, dass der NPC auf dem Server existiert*/
